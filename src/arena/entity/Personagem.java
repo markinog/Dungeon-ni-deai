@@ -4,7 +4,7 @@ public abstract class Personagem {
 
     protected String nome;
 
-    //modificadores de acesso
+    //modificadores de acesso e atributos encapsulados
     protected double pontosDeVida;
     protected int forca;
     protected int inteligencia;
@@ -59,5 +59,6 @@ public abstract class Personagem {
         }
     }
 
+    //estabelece um contrato com as classes que herdarem Personagem
     public abstract double atacar(int tipoAtaque);
 }

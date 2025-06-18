@@ -11,8 +11,9 @@ public class Arena {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        Guerreiro guerreiro = new Guerreiro("Thor", 120, 18, 5);
-        Mago mago = new Mago("Dr. Estranho", 90, 8, 20);
+        //representação dos objetos sendo instanciados
+        Guerreiro guerreiro = new Guerreiro("Darius", 120, 18, 5);
+        Mago mago = new Mago("Veigar", 90, 8, 20);
 
         System.out.println("--- PREPARAÇÃO PARA A BATALHA ---");
         exibirInformacoesIniciais(guerreiro);

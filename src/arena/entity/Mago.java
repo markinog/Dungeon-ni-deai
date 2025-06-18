@@ -7,6 +7,7 @@ public class Mago extends Personagem {
     }
 
     //polimorfismo
+    //cumpre o contrato da classe pai
     @Override
     public double atacar(int tipoAtaque) {
         double dano = 0;
