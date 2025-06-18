@@ -18,7 +18,7 @@ public class Guerreiro extends Personagem {
                 break;
             case 2:
                 System.out.println(this.nome + " usa Golpe Rápido!");
-                dano = this.forca * 1.8; // Fórmula mais simples
+                dano = this.forca * 1.8;
                 break;
             default:
                 System.out.println("Opção de ataque inválida! Usando ataque padrão.");
