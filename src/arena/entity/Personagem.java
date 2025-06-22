@@ -60,5 +60,5 @@ public abstract class Personagem {
     }
 
     //estabelece um contrato com as classes que herdarem Personagem
-    public abstract double atacar(int tipoAtaque);
+    public abstract double atacar(int tipoAtaque, int valorDado);
 }

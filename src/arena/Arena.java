@@ -1,8 +1,10 @@
 package arena;
 
+import arena.entity.D20;
 import arena.entity.Guerreiro;
 import arena.entity.Mago;
 import arena.entity.Personagem;
+import arena.utils.Utils;
 
 import java.util.Scanner;
 
@@ -13,11 +15,11 @@ public class Arena {
 
         //representação dos objetos sendo instanciados
         Guerreiro guerreiro = new Guerreiro("Darius", 120, 18, 5);
-        Mago mago = new Mago("Veigar", 90, 8, 20);
+        Mago mago = new Mago("Veigar", 90, 8, 20, 0);
 
         System.out.println("--- PREPARAÇÃO PARA A BATALHA ---");
-        exibirInformacoesIniciais(guerreiro);
-        exibirInformacoesIniciais(mago);
+        System.out.println(guerreiro);
+        System.out.println(mago);
 
         System.out.println("\n-------------------");
         System.out.println("A BATALHA COMEÇA!");
@@ -33,19 +35,23 @@ public class Arena {
             if (turno % 2 != 0) {
                 atacante = guerreiro;
                 defensor = mago;
-                System.out.println(">> Turno de " + atacante.getNome() + " (Guerreiro)");
+                System.out.println(">> Turno de " + atacante.getNome() + " (Guerreiro)\n");
+
                 System.out.println("Escolha o ataque: \n 1 - Ataque Brutal \n 2 - Golpe Rápido");
             } else {
                 atacante = mago;
                 defensor = guerreiro;
                 System.out.println(">> Turno de " + atacante.getNome() + " (Mago)");
+
                 System.out.println("Escolha o ataque: \n 1 - Bola de Fogo \n 2 - Raio Arcano");
             }
 
             System.out.print("Sua escolha: ");
             int escolha = sc.nextInt();
 
-            double danoCausado = atacante.atacar(escolha);
+            int resultado = rolarD20();
+
+            double danoCausado = atacante.atacar(escolha, resultado);
             defensor.receberDano(danoCausado);
 
             System.out.printf("%s causou %.2f de dano em %s.\n", atacante.getNome(), danoCausado, defensor.getNome());
@@ -65,13 +71,13 @@ public class Arena {
         sc.close();
     }
 
-    public static void exibirInformacoesIniciais(Personagem p) {
-        System.out.println("\n--------------Personagem Criado--------------");
-        System.out.println("Nome: " + p.getNome());
-        System.out.println("Classe: " + p.getClass().getSimpleName());
-        System.out.printf("Vida: %.0f\n", p.getPontosDeVida());
-        System.out.println("Força: " + p.getForca());
-        System.out.println("Inteligência: " + p.getInteligencia());
+    private static int rolarD20() {
+        System.out.println("\nRolando um D20...");
+        Utils.pause(400);
+        int resultado = D20.rolar();
+        System.out.printf("Resultado: %d\n\n", resultado);
+
+        return resultado;
     }
 
     public static void exibirStatus(Personagem p1, Personagem p2) {
