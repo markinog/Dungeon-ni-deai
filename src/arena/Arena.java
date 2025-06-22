@@ -15,7 +15,7 @@ public class Arena {
 
         //representação dos objetos sendo instanciados
         Guerreiro guerreiro = new Guerreiro("Darius", 120, 18, 5);
-        Mago mago = new Mago("Veigar", 90, 8, 20, 0);
+        Mago mago = new Mago("Veigar", 90, 8, 20);
 
         System.out.println("--- PREPARAÇÃO PARA A BATALHA ---");
         System.out.println(guerreiro);
@@ -37,13 +37,13 @@ public class Arena {
                 defensor = mago;
                 System.out.println(">> Turno de " + atacante.getNome() + " (Guerreiro)\n");
 
-                System.out.println("Escolha o ataque: \n 1 - Ataque Brutal \n 2 - Golpe Rápido");
+                atacante.exibirAtaques();
             } else {
                 atacante = mago;
                 defensor = guerreiro;
-                System.out.println(">> Turno de " + atacante.getNome() + " (Mago)");
+                System.out.println(">> Turno de " + atacante.getNome() + " (Mago)\n");
 
-                System.out.println("Escolha o ataque: \n 1 - Bola de Fogo \n 2 - Raio Arcano");
+                atacante.exibirAtaques();
             }
 
             System.out.print("Sua escolha: ");
@@ -81,8 +81,8 @@ public class Arena {
     }
 
     public static void exibirStatus(Personagem p1, Personagem p2) {
-        System.out.printf("Status: %s (Vida: %.2f) vs %s (Vida: %.2f)\n",
-                p1.getNome(), p1.getPontosDeVida(),
-                p2.getNome(), p2.getPontosDeVida());
+        System.out.println("-------------- STATUS --------------");
+        System.out.printf("%s (Vida: %.2f) (Fúria: %d)\n", p1.getNome(), p1.getPontosDeVida(), p1.getModificador());
+        System.out.printf("%s (Vida: %.2f) (Mana: %d)\n", p2.getNome(), p2.getPontosDeVida(), p2.getModificador());
     }
 }

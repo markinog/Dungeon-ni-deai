@@ -3,14 +3,22 @@ package arena.entity;
 public class Mago extends Personagem {
 
     private int mana;
+    private final double ataquePadrao = inteligencia * 1.5;
 
-    public Mago(String nome, int pontosDeVida, int forca, int inteligencia, int mana) {
+    public Mago(String nome, int pontosDeVida, int forca, int inteligencia) {
         super(nome, pontosDeVida, forca, inteligencia);
-        this.mana = mana;
+        mana = 100;
     }
 
-    public int getMana() {
-        return mana;
+    private boolean realizarAtaque(int manaNecessaria) {
+        if (mana < manaNecessaria) {
+            System.out.println("Mana insuficiente. Utilizando ataque padrão.");
+            return false;
+        }
+
+        mana -= manaNecessaria;
+
+        return true;
     }
 
     //polimorfismo
@@ -28,14 +36,45 @@ public class Mago extends Personagem {
 
         StringBuilder sb = new StringBuilder();
 
+        boolean podeAtacar;
         switch (tipoAtaque) {
             case 1:
-                sb.append(this.nome + " lança uma Bola de Fogo!");
-                dano = (this.inteligencia * 2.8) + (this.forca * 0.05);
+                podeAtacar = realizarAtaque(15);
+
+                if (podeAtacar) {
+                    dano = (this.inteligencia * 1.8) + (this.forca * 0.05);
+                    sb.append(this.nome + " lança uma Bola de Fogo!");
+                }
+                else {
+                    dano = ataquePadrao;
+                    sb.append("Sem mana suficiente. Utilizando ataque padrão.");
+                }
                 break;
             case 2:
-                sb.append(this.nome + " dispara um Raio Arcano!");
-                dano = this.inteligencia * 2.2;
+                podeAtacar = realizarAtaque(12);
+
+                if (podeAtacar) {
+                    dano = this.inteligencia * 1.5;
+                    sb.append(this.nome + " dispara um Raio Arcano!");
+                }
+                else {
+                    dano = ataquePadrao;
+                    sb.append("Sem mana suficiente. Utilizando ataque padrão.");
+                }
+
+                break;
+            case 3:
+                podeAtacar = realizarAtaque(80);
+
+                if (podeAtacar) {
+                    dano = this.inteligencia * 2.8;
+                    sb.append(this.nome + " dispara Explosão Primordial!");
+                }
+                else {
+                    dano = ataquePadrao;
+                    sb.append("Sem mana suficiente. Utilizando ataque padrão.");
+                }
+
                 break;
             default:
                 sb.append("Opção de ataque inválida! Usando ataque padrão.");
@@ -43,7 +82,7 @@ public class Mago extends Personagem {
                 break;
         }
 
-        if (critico) {
+        if (critico && tipoAtaque != 3) {
             sb.append(" FOI UM ACERTO CRÍTICO!!!");
             dano *= 2;
         }
@@ -51,7 +90,22 @@ public class Mago extends Personagem {
         sb.append("\n");
         System.out.print(sb);
 
+        mana += 10;
+
         return dano;
+    }
+
+    @Override
+    public int getModificador() {
+        return mana;
+    }
+
+    @Override
+    public void exibirAtaques() {
+        System.out.println("Escolha o ataque:");
+        System.out.println("1 - Bola de Fogo (15 de mana)");
+        System.out.println("2 - Raio Arcano (12 de mana)");
+        System.out.println("3 - Explosão Primordial (80 de mana)");
     }
 
     @Override
